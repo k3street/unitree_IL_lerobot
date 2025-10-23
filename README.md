@@ -75,6 +75,29 @@ git clone https://github.com/unitreerobotics/unitree_sdk2_python.git
 cd unitree_sdk2_python  && pip install -e .
 ```
 
+## 1.3 🧪 Isaac Sim 5.0 + Isaac Lab
+
+To prototype policies inside the `unitree_sim_isaaclab` simulator, create a dedicated Python 3.11 environment that matches the Isaac Sim 5.0 requirements and installs the latest Isaac Lab release:
+
+```bash
+conda create -y -n unitree311 python=3.11
+conda activate unitree311
+
+# Optional but recommended before large downloads
+python -m pip install --upgrade pip
+
+# Install the full Isaac Sim 5.0 stack (accept the NVIDIA EULA prompt once)
+pip install "isaacsim[all,extscache]==5.0.0.0" --extra-index-url https://pypi.nvidia.com
+
+# Install the matching Isaac Lab distribution
+pip install "isaaclab==2.2.0"
+
+# Quick smoke test: import bootstraps Isaac Sim, then launches headless SimulationApp
+python -c "import isaacsim; from isaacsim.simulation_app import SimulationApp; SimulationApp({'headless': True}).close()"
+```
+
+> ℹ️ The smoke test prints CUDA warnings on machines without an NVIDIA GPU; as long as the command exits with status 0 the SimulationApp booted and shut down correctly.
+
 # 2. ⚙️ Data Collection and Conversion
 
 ## 2.1 🖼️ Load Datasets
